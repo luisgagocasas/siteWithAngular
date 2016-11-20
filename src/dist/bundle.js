@@ -58320,6 +58320,24 @@
 	    Page.setTitle('Inicio');
 	    console.log("Cargo ");
 	    //
+	    $scope.myInterval = 5000;
+	    $scope.noWrapSlides = false;
+	    $scope.active = 0;
+	    var slides = $scope.slides = [];
+	    var currIndex = 0;
+
+	    $scope.addSlide = function() {
+	        var newWidth = 1170 + slides.length + 1;
+	        slides.push({
+	            image: '//unsplash.it/' + newWidth + '/450/?random',
+	            text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
+	            id: currIndex++
+	        });
+	    };
+	    for (var i = 0; i < 4; i++) {
+	        $scope.addSlide();
+	    }
+	    //
 	    /*
 	    $scope.names = [ ];
 	    $http.get('http://localhost:8000/')
@@ -58413,7 +58431,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div class=\"container\"><div class=\"row\"><div class=\"col-xs-12 col-sm-6 col-md-4\"><h2>2007 AUDI A4 2.0T QU</h2><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/17_thumbnail.jpg\"></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat distinctio illo rerum atque ducimus, laboriosam debitis eum deserunt ab libero quis voluptas, illum, perferendis numquam aut aliquam itaque qui magnam!</p><a href=\"\" class=\"btn btn-success\">Leer mas</a></div><div class=\"col-xs-12 col-sm-6 col-md-4\"><h2>1966 FORD MUSTANG GT</h2><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/13_thumbnail.jpg\"></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat distinctio illo rerum atque ducimus, laboriosam debitis eum deserunt ab libero quis voluptas, illum, perferendis numquam aut aliquam itaque qui magnam!</p><a href=\"\" class=\"btn btn-success\">Leer mas</a></div><div class=\"col-xs-12 col-sm-6 col-md-4\"><h2>2007 SATURN OUTLOOK XE</h2><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/5_thumbnail.jpg\"></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat distinctio illo rerum atque ducimus, laboriosam debitis eum deserunt ab libero quis voluptas, illum, perferendis numquam aut aliquam itaque qui magnam!</p><a href=\"\" class=\"btn btn-success\">Leer mas</a></div></div></div>");;return buf.join("");
+	buf.push("<div class=\"container\"><div class=\"row\"><div class=\"jumbotron\"><h1 class=\"text-center\">MundiCar</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus dolorem ad officiis nihil delectus quidem animi rerum, molestias sint natus ducimus quod, unde molestiae dolores laboriosam error facilis odio doloremque.</p></p><p><a href=\"#\" role=\"button\" class=\"btn btn-primary btn-lg\">Leer mas</a></p></div></div></div><div class=\"container\"><div class=\"row\"><div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\"><div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\"><img ng-src=\"{{slide.image}}\" style=\"margin:auto;\"><div class=\"carousel-caption\"><h4>Slide {{slide.id}}</h4><p>{{slide.text}}</p></div></div></div></div></div><div class=\"container\"><div class=\"row\"><div class=\"col-xs-12 col-sm-6 col-md-4\"><h2>2007 AUDI A4 2.0T QU</h2><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/17_thumbnail.jpg\"></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat distinctio illo rerum atque ducimus, laboriosam debitis eum deserunt ab libero quis voluptas, illum, perferendis numquam aut aliquam itaque qui magnam!</p><a href=\"\" class=\"btn btn-success\">Leer mas</a></div><div class=\"col-xs-12 col-sm-6 col-md-4\"><h2>1966 FORD MUSTANG GT</h2><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/13_thumbnail.jpg\"></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat distinctio illo rerum atque ducimus, laboriosam debitis eum deserunt ab libero quis voluptas, illum, perferendis numquam aut aliquam itaque qui magnam!</p><a href=\"\" class=\"btn btn-success\">Leer mas</a></div><div class=\"col-xs-12 col-sm-6 col-md-4\"><h2>2007 SATURN OUTLOOK XE</h2><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/5_thumbnail.jpg\"></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat distinctio illo rerum atque ducimus, laboriosam debitis eum deserunt ab libero quis voluptas, illum, perferendis numquam aut aliquam itaque qui magnam!</p><a href=\"\" class=\"btn btn-success\">Leer mas</a></div></div></div>");;return buf.join("");
 	}
 
 /***/ },

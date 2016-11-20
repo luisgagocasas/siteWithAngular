@@ -1,5 +1,22 @@
 .container
     .row
+        .jumbotron
+            h1.text-center MundiCar
+            p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus dolorem ad officiis nihil delectus quidem animi rerum, molestias sint natus ducimus quod, unde molestiae dolores laboriosam error facilis odio doloremque.</p>
+            p
+                a(href="#", class="btn btn-primary btn-lg", role="button") Leer mas
+
+.container
+    .row
+        div(uib-carousel, active="active", interval="myInterval", no-wrap="noWrapSlides")
+            div(uib-slide, ng-repeat="slide in slides track by slide.id", index="slide.id")
+                img(ng-src="{{slide.image}}", style="margin:auto;")
+                div(class="carousel-caption")
+                    h4 Slide {{slide.id}}
+                    p {{slide.text}}
+
+.container
+    .row
         .col-xs-12.col-sm-6.col-md-4
             h2 2007 AUDI A4 2.0T QU
             figure
