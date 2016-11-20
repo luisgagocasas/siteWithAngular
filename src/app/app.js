@@ -1,9 +1,12 @@
 // Import libs
 	var libs = require('./app.libs.js');
-
+	
+// Import Stylus General
+	require('./styles.styl');
+	
 // Setup App
 	// App
-	var app = angular.module('app', ['ui.router']);
+	var app = angular.module('app', ['ui.router', 'ui.bootstrap']);
 
 	// Config
 	app.config(require('./app.config.js'));
@@ -22,4 +25,3 @@
 
 
 // Import Classes
-	require('./classes/index.js')(app);

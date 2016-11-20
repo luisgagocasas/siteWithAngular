@@ -3,7 +3,6 @@ MundiCar
 
 ## Requirements
 - npm
-- gulp
 
 ## Getting started
 
@@ -15,12 +14,7 @@ npm install
 
 #### Serve app
 ```bash
-gulp serve
-```
-
-#### Build app
-```bash
-gulp build
+npm run serve
 ```
 
 ## Diagrama Clases

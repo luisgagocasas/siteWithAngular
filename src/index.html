@@ -1,10 +1,99 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-controller="MainCtrl">
+<html lang="es" ng-app="app" ng-controller="MainCtrl">
 	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>{{ Page.title() }}</title>
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	</head>
 	<body>
+		<section class="container">
+	        <div class="row">
+	            <header>
+	                <nav class="navbar navbar-default" role="navigation">
+						<div class="container-fluid">
+							<!-- Brand and toggle get grouped for better mobile display -->
+							<div class="navbar-header">
+							  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							    <span class="sr-only">Toggle navigation</span>
+							    <span class="icon-bar"></span>
+							    <span class="icon-bar"></span>
+							    <span class="icon-bar"></span>
+							  </button>
+							  <a class="navbar-brand" href="#">Menú</a>
+							</div>
+
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							  <ul class="nav navbar-nav">
+							    <li class="active"><a href="#">Inicio</a></li>
+							    <li><a href="#">Nosotros</a></li>
+							    <li class="dropdown">
+							      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Servicios <span class="caret"></span></a>
+							      <ul class="dropdown-menu" role="menu">
+							        <li><a href="#">Desarrollos</a></li>
+							        <li><a href="#">Diseño</a></li>
+							        <li><a href="#">Publicidad</a></li>
+							        <li class="divider"></li>
+							        <li><a href="#">Consultoria</a></li>
+							        <li class="divider"></li>
+							        <li><a href="#">Otros</a></li>
+							      </ul>
+							    </li>
+							  </ul>
+							  <form class="navbar-form navbar-left" role="search">
+							    <div class="form-group">
+							      <input type="text" class="form-control" placeholder="Buscador">
+							    </div>
+							    <button type="submit" class="btn btn-default">Buscar</button>
+							  </form>
+							  <ul class="nav navbar-nav navbar-right">
+							    <li><a href="#">Usuario</a></li>
+							    <li class="dropdown">
+							      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mi cuenta <span class="caret"></span></a>
+							      <ul class="dropdown-menu" role="menu">
+							        <li><a href="#">Action</a></li>
+							        <li><a href="#">Another action</a></li>
+							        <li><a href="#">Something else here</a></li>
+							        <li class="divider"></li>
+							        <li><a href="#">Separated link</a></li>
+							      </ul>
+							    </li>
+							  </ul>
+							</div><!-- /.navbar-collapse -->
+						</div><!-- /.container-fluid -->
+					</nav>
+	            </header>
+	        </div>
+    	</section>
+		<div class="container">
+           <div class="row">
+               <div class="jumbotron">
+                  <h1 class="text-center">MundiCar</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus dolorem ad officiis nihil delectus quidem animi rerum, molestias sint natus ducimus quod, unde molestiae dolores laboriosam error facilis odio doloremque.</p>
+                  <p><a class="btn btn-primary btn-lg" role="button">Leer mas</a></p>
+            	</div>
+           </div>
+		</div>
 		<div app-container></div>
+		<div class="container">
+            <div class="row">
+                <ul class="pagination pagination-lg">
+					<li class="disabled"><a href="#"> < </a></li>
+					<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li><a href="#">> </a></li>
+                  </ul>
+            </div>
+        </div>
+		<div class="container">
+		    <div class="row">
+		        <p class="text-center"><strong>Creado por <a href="http://adiasoft.com/" target="_blank">AdiaSoft</a></strong></p>
+		    </div>
+		</div>
 		<script src="dist/bundle.js"></script>
 	</body>
 </html>

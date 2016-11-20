@@ -1,7 +1,7 @@
 function titlePage(){
     var title = 'default';
     return {
-        title: function() { return title; },
+        title: function() { return title+" - MundiCar"; },
         setTitle: function(newTitle) { title = newTitle; }
     };
 };
