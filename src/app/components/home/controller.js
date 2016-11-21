@@ -1,6 +1,6 @@
 function homeController($scope, $http, Page) {
     Page.setTitle('Inicio');
-    console.log("Cargo ");
+    console.log("Cargo");
     //
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;

@@ -12,6 +12,11 @@ MundiCar
 npm install
 ```
 
+#### Serve api
+```bash
+npm run api
+```
+
 #### Serve app
 ```bash
 npm run serve
