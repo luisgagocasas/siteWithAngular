@@ -20,14 +20,13 @@
 							    <span class="icon-bar"></span>
 							    <span class="icon-bar"></span>
 							  </button>
-							  <a class="navbar-brand" href="#">Menú</a>
+							  <a class="navbar-brand" href="#">MundiCar</a>
 							</div>
-
-							<!-- Collect the nav links, forms, and other content for toggling -->
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							  <ul class="nav navbar-nav">
 							    <li class="active"><a href="#">Inicio</a></li>
 							    <li><a href="#">Nosotros</a></li>
+							    <li><a href="#">Como Comprar</a></li>
 							    <li class="dropdown">
 							      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Servicios <span class="caret"></span></a>
 							      <ul class="dropdown-menu" role="menu">
@@ -52,11 +51,10 @@
 							    <li class="dropdown">
 							      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mi cuenta <span class="caret"></span></a>
 							      <ul class="dropdown-menu" role="menu">
-							        <li><a href="#">Action</a></li>
-							        <li><a href="#">Another action</a></li>
-							        <li><a href="#">Something else here</a></li>
-							        <li class="divider"></li>
-							        <li><a href="#">Separated link</a></li>
+									<li><a href="#">Editar Perfil</a></li>
+									<li><a href="#">Mis Anuncios</a></li>
+									<li class="divider"></li>
+									<li><a ui-sref="anuncioAgregar">Publicar Anuncio</a></li>
 							      </ul>
 							    </li>
 							  </ul>
@@ -68,23 +66,11 @@
     	</section>
 		<div app-container></div>
 		<div class="container">
-            <div class="row">
-                <ul class="pagination pagination-lg">
-					<li class="disabled"><a href="#"> < </a></li>
-					<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#">> </a></li>
-                  </ul>
-            </div>
-        </div>
-		<div class="container">
 		    <div class="row">
 		        <p class="text-center"><strong>Creado por <a href="http://adiasoft.com/" target="_blank">AdiaSoft</a></strong></p>
 		    </div>
 		</div>
+		<script src="api/php_crud_api_transform.js" type="text/javascript"></script>
 		<script src="dist/bundle.js"></script>
 	</body>
 </html>

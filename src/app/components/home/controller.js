@@ -1,6 +1,5 @@
 function homeController($scope, $http, Page) {
-    Page.setTitle('Inicio');
-    console.log("Cargo");
+    Page.setTitle('Portada');
     //
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
@@ -19,32 +18,17 @@ function homeController($scope, $http, Page) {
     for (var i = 0; i < 4; i++) {
         $scope.addSlide();
     }
-    //
-    /*
-    $scope.names = [ ];
-    $http.get('http://localhost:8000/')
-        .success(function(data) {
-                $scope.names = eval(data);
-                console.log(data)
-            })
-        .error(function(data) {
-                console.log('Error: ' + data);
+    //Read
+    $http.get('http://localhost/mundicar/src/api/api.php/publicaciones')
+        .success(function(response) {
+            $scope.publicaciones = php_crud_api_transform(response).publicaciones;
+            console.log(php_crud_api_transform(response).publicaciones)
+        })
+        .error(function(response) {
+            console.log('Error: ' + response);
         });
  
-    $scope.addNom = function() {
-        $http.post('http://localhost:8000/', { op: 'append', nom: $scope.nom, telefon: $scope.telefon } )
-            .success(function(data) {
-                    $scope.names = eval(data);
-                    console.log(data)
-                })
-            .error(function(data) {
-                    console.log('Error: ' + data);
-            });
- 
-        $scope.nom="";
-        $scope.telefon="";
-    }
- 
+    /*
     $scope.delNom = function( nom ) {
         if ( confirm("Seguro?") ) {
             $http.post('http://localhost:8000/', { op: 'delete', nom: nom } )

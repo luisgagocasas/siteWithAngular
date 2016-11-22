@@ -10,8 +10,8 @@ module.exports = function ($stateProvider, $urlRouterProvider, $compileProvider)
 			url: '/saludar',
 			template: '<div saludar></div>'
 		})
-		.state('persona', {
-			url: '/persona',
-			template: '<div persona></div>'
+		.state('anuncioAgregar', {
+			url: '/anuncio-agregar',
+			template: '<div anuncio-agregar></div>'
 		})
 }

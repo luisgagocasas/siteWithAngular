@@ -5,7 +5,7 @@
 // Exports
     function directive() {
         return {
-            controller: 'persona as component',
+            controller: 'anuncioAgregar as component',
             restrict: 'EA',
             template: template
         };

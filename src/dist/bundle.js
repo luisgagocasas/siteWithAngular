@@ -57962,9 +57962,9 @@
 				url: '/saludar',
 				template: '<div saludar></div>'
 			})
-			.state('persona', {
-				url: '/persona',
-				template: '<div persona></div>'
+			.state('anuncioAgregar', {
+				url: '/anuncio-agregar',
+				template: '<div anuncio-agregar></div>'
 			})
 	}
 
@@ -58291,11 +58291,11 @@
 		//Controllers
 		var homeController = __webpack_require__(20);
 		var saludarController = __webpack_require__(21);
-		var personaController = __webpack_require__(22);
+		var anuncioAgregarController = __webpack_require__(40);
 		//Directives
 		var homeDirective = __webpack_require__(23);
 		var saludarDirective = __webpack_require__(27);
-		var personaDirective = __webpack_require__(31);
+		var anuncioAgregarDirective = __webpack_require__(41);
 
 	// Setup
 		module.exports = function (app) {
@@ -58305,11 +58305,11 @@
 			});
 			app.controller('home', homeController);
 			app.controller('saludar', saludarController);
-			app.controller('persona', personaController);
+			app.controller('anuncioAgregar', anuncioAgregarController);
 			// Directives
 			app.directive('home', homeDirective);
 			app.directive('saludar', saludarDirective);
-			app.directive('persona', personaDirective);
+			app.directive('anuncioAgregar', anuncioAgregarDirective);
 		}
 
 /***/ },
@@ -58317,8 +58317,7 @@
 /***/ function(module, exports) {
 
 	function homeController($scope, $http, Page) {
-	    Page.setTitle('Inicio');
-	    console.log("Cargo");
+	    Page.setTitle('Portada');
 	    //
 	    $scope.myInterval = 5000;
 	    $scope.noWrapSlides = false;
@@ -58337,32 +58336,17 @@
 	    for (var i = 0; i < 4; i++) {
 	        $scope.addSlide();
 	    }
-	    //
-	    /*
-	    $scope.names = [ ];
-	    $http.get('http://localhost:8000/')
-	        .success(function(data) {
-	                $scope.names = eval(data);
-	                console.log(data)
-	            })
-	        .error(function(data) {
-	                console.log('Error: ' + data);
+	    //Read
+	    $http.get('http://localhost/mundicar/src/api/api.php/publicaciones')
+	        .success(function(response) {
+	            $scope.publicaciones = php_crud_api_transform(response).publicaciones;
+	            console.log(php_crud_api_transform(response).publicaciones)
+	        })
+	        .error(function(response) {
+	            console.log('Error: ' + response);
 	        });
 	 
-	    $scope.addNom = function() {
-	        $http.post('http://localhost:8000/', { op: 'append', nom: $scope.nom, telefon: $scope.telefon } )
-	            .success(function(data) {
-	                    $scope.names = eval(data);
-	                    console.log(data)
-	                })
-	            .error(function(data) {
-	                    console.log('Error: ' + data);
-	            });
-	 
-	        $scope.nom="";
-	        $scope.telefon="";
-	    }
-	 
+	    /*
 	    $scope.delNom = function( nom ) {
 	        if ( confirm("Seguro?") ) {
 	            $http.post('http://localhost:8000/', { op: 'delete', nom: nom } )
@@ -58392,17 +58376,7 @@
 	module.exports = saludarController;
 
 /***/ },
-/* 22 */
-/***/ function(module, exports) {
-
-	function personaController($scope, Page) {
-	    Page.setTitle('Persona');
-	    console.log("ready persona");
-	}
-
-	module.exports = personaController;
-
-/***/ },
+/* 22 */,
 /* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -58431,7 +58405,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div class=\"container\"><div class=\"row\"><div class=\"jumbotron\"><h1 class=\"text-center\">MundiCar</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus dolorem ad officiis nihil delectus quidem animi rerum, molestias sint natus ducimus quod, unde molestiae dolores laboriosam error facilis odio doloremque.</p></p><p><a href=\"#\" role=\"button\" class=\"btn btn-primary btn-lg\">Leer mas</a></p></div></div></div><div class=\"container\"><div class=\"row\"><div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\"><div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\"><img ng-src=\"{{slide.image}}\" style=\"margin:auto;\"><div class=\"carousel-caption\"><h4>Slide {{slide.id}}</h4><p>{{slide.text}}</p></div></div></div></div></div><div class=\"container\"><div class=\"row\"><div class=\"col-xs-12 col-sm-6 col-md-4\"><h2>2007 AUDI A4 2.0T QU</h2><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/17_thumbnail.jpg\"></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat distinctio illo rerum atque ducimus, laboriosam debitis eum deserunt ab libero quis voluptas, illum, perferendis numquam aut aliquam itaque qui magnam!</p><a href=\"\" class=\"btn btn-success\">Leer mas</a></div><div class=\"col-xs-12 col-sm-6 col-md-4\"><h2>1966 FORD MUSTANG GT</h2><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/13_thumbnail.jpg\"></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat distinctio illo rerum atque ducimus, laboriosam debitis eum deserunt ab libero quis voluptas, illum, perferendis numquam aut aliquam itaque qui magnam!</p><a href=\"\" class=\"btn btn-success\">Leer mas</a></div><div class=\"col-xs-12 col-sm-6 col-md-4\"><h2>2007 SATURN OUTLOOK XE</h2><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/5_thumbnail.jpg\"></figure><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat distinctio illo rerum atque ducimus, laboriosam debitis eum deserunt ab libero quis voluptas, illum, perferendis numquam aut aliquam itaque qui magnam!</p><a href=\"\" class=\"btn btn-success\">Leer mas</a></div></div></div>");;return buf.join("");
+	buf.push("<div class=\"container\"><div class=\"row\"><div class=\"jumbotron\"><h1 class=\"text-center\">MundiCar</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus dolorem ad officiis nihil delectus quidem animi rerum, molestias sint natus ducimus quod, unde molestiae dolores laboriosam error facilis odio doloremque.</p></p><p><a href=\"#\" role=\"button\" class=\"btn btn-primary btn-lg\">Leer mas</a></p></div></div></div><div class=\"container\"><div class=\"row\"><div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\"><div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\"><img ng-src=\"{{slide.image}}\" style=\"margin:auto;\"><div class=\"carousel-caption\"><h4>Slide {{slide.id}}</h4><p>{{slide.text}}</p></div></div></div></div></div><div class=\"container\"><div class=\"row\"><div ng-repeat=\"publicacion in publicaciones\" class=\"col-xs-12 col-sm-6 col-md-4\"><!--h2 {{ publicacion.cod }}--><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/17_thumbnail.jpg\"></figure><p>{{ publicacion.mrc }} - {{ publicacion.modelo }}</p><a href=\"#\" class=\"btn btn-success\">Leer mas</a></div></div></div><div class=\"container\"><div class=\"row text-center\"><ul class=\"pagination pagination-lg\"><li class=\"disabled\"><a href=\"#\"><</a></li><li class=\"active\"><a href=\"#\">1<span class=\"sr-only\">(current)</span></a></li><li><a href=\"#\">2</a></li><li><a href=\"#\">3</a></li><li><a href=\"#\">4</a></li><li><a href=\"#\">5</a></li><li><a href=\"#\">></a></li></ul></div></div>");;return buf.join("");
 	}
 
 /***/ },
@@ -58547,78 +58521,10 @@
 
 
 /***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	// Imports
-	    var template = __webpack_require__(32);
-	    var style = __webpack_require__(33);
-	// Exports
-	    function directive() {
-	        return {
-	            controller: 'persona as component',
-	            restrict: 'EA',
-	            template: template
-	        };
-	    }
-	    module.exports = directive;
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(16);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<ui-view></ui-view>");;return buf.join("");
-	}
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(34);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(10)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".persona {\n  color: #f00;\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -58738,6 +58644,128 @@
 	};
 
 	module.exports = titlePage;
+
+/***/ },
+/* 40 */
+/***/ function(module, exports) {
+
+	function anuncioAddController($scope, $http, $location, Page) {
+	    Page.setTitle('Agregar Anuncio');
+	    //
+	    //Create persona
+	    $scope.addPerson = function() {
+	        $http.post('http://localhost/mundicar/src/api/api.php/publicaciones',
+	            {
+	                cod: $scope.cod,
+	                mrc: $scope.mrc,
+	                modelo: $scope.modelo,
+	                anio: $scope.anio,
+	                motor: $scope.motor,
+	                combustible: $scope.combustible,
+	                km: $scope.km,
+	                color: $scope.color,
+	                volante: $scope.volante,
+	                trans: $scope.trans,
+	                strans: $scope.strans,
+	                cap: $scope.cap,
+	                tdmotor: $scope.tdmotor,
+	                precio: $scope.precio,
+	                condicion: $scope.condicion,
+	                airea: $scope.airea,
+	                lunase: $scope.lunase,
+	                equipor: $scope.equipor,
+	                sonroof: $scope.sonroof,
+	                asiento: $scope.asiento,
+	                baire: $scope.baire,
+	                foto1: $scope.foto1,
+	                foto2: $scope.foto2,
+	                foto3: $scope.foto3,
+	                foto4: $scope.foto4,
+	                freg: $scope.freg,
+	                obs: $scope.obs,
+	            })
+	            .success(function(response) {
+	                $location.path("/");
+	            })
+	            .error(function(response) {
+	                console.log('Error: ' + response);
+	            });
+	    }
+	}
+
+	module.exports = anuncioAddController;
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	// Imports
+	    var template = __webpack_require__(42);
+	    var style = __webpack_require__(43);
+	// Exports
+	    function directive() {
+	        return {
+	            controller: 'anuncioAgregar as component',
+	            restrict: 'EA',
+	            template: template
+	        };
+	    }
+	    module.exports = directive;
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(16);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<div class=\"container\"><div class=\"row\"><div class=\"col-xs-12 col-sm-6 col-md-6\"><div class=\"form-horizontal\"><div class=\"form-group\"><label for=\"cod\" class=\"col-lg-2 control-label\">cod</label><div class=\"col-lg-10\"><input type=\"text\" id=\"cod\" ng-model=\"cod\" placeholder=\"cod\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"mrc\" class=\"col-lg-2 control-label\">mrc</label><div class=\"col-lg-10\"><input type=\"text\" id=\"mrc\" ng-model=\"mrc\" placeholder=\"mrc\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"modelo\" class=\"col-lg-2 control-label\">modelo</label><div class=\"col-lg-10\"><input type=\"text\" id=\"modelo\" ng-model=\"modelo\" placeholder=\"modelo\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"anio\" class=\"col-lg-2 control-label\">anio</label><div class=\"col-lg-10\"><input type=\"text\" id=\"anio\" ng-model=\"anio\" placeholder=\"anio\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"motor\" class=\"col-lg-2 control-label\">motor</label><div class=\"col-lg-10\"><input type=\"text\" id=\"motor\" ng-model=\"motor\" placeholder=\"motor\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"combustible\" class=\"col-lg-2 control-label\">combustible</label><div class=\"col-lg-10\"><input type=\"text\" id=\"combustible\" ng-model=\"combustible\" placeholder=\"combustible\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"km\" class=\"col-lg-2 control-label\">km</label><div class=\"col-lg-10\"><input type=\"text\" id=\"km\" ng-model=\"km\" placeholder=\"km\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"color\" class=\"col-lg-2 control-label\">color</label><div class=\"col-lg-10\"><input type=\"text\" id=\"color\" ng-model=\"color\" placeholder=\"color\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"volante\" class=\"col-lg-2 control-label\">volante</label><div class=\"col-lg-10\"><input type=\"text\" id=\"volante\" ng-model=\"volante\" placeholder=\"volante\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"trans\" class=\"col-lg-2 control-label\">trans</label><div class=\"col-lg-10\"><input type=\"text\" id=\"trans\" ng-model=\"trans\" placeholder=\"trans\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"cap\" class=\"col-lg-2 control-label\">cap</label><div class=\"col-lg-10\"><input type=\"text\" id=\"cap\" ng-model=\"cap\" placeholder=\"cap\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"tdmotor\" class=\"col-lg-2 control-label\">tdmotor</label><div class=\"col-lg-10\"><input type=\"text\" id=\"tdmotor\" ng-model=\"tdmotor\" placeholder=\"tdmotor\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"precio\" class=\"col-lg-2 control-label\">precio</label><div class=\"col-lg-10\"><input type=\"text\" id=\"precio\" ng-model=\"precio\" placeholder=\"precio\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"condicion\" class=\"col-lg-2 control-label\">condicion</label><div class=\"col-lg-10\"><input type=\"text\" id=\"condicion\" ng-model=\"condicion\" placeholder=\"condicion\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"airea\" class=\"col-lg-2 control-label\">airea</label><div class=\"col-lg-10\"><input type=\"text\" id=\"airea\" ng-model=\"airea\" placeholder=\"airea\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"lunase\" class=\"col-lg-2 control-label\">lunase</label><div class=\"col-lg-10\"><input type=\"text\" id=\"lunase\" ng-model=\"lunase\" placeholder=\"lunase\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"equipor\" class=\"col-lg-2 control-label\">equipor</label><div class=\"col-lg-10\"><input type=\"text\" id=\"equipor\" ng-model=\"equipor\" placeholder=\"equipor\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"sonroof\" class=\"col-lg-2 control-label\">sonroof</label><div class=\"col-lg-10\"><input type=\"text\" id=\"sonroof\" ng-model=\"sonroof\" placeholder=\"sonroof\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"asiento\" class=\"col-lg-2 control-label\">asiento</label><div class=\"col-lg-10\"><input type=\"text\" id=\"asiento\" ng-model=\"asiento\" placeholder=\"asiento\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"baire\" class=\"col-lg-2 control-label\">baire</label><div class=\"col-lg-10\"><input type=\"text\" id=\"baire\" ng-model=\"baire\" placeholder=\"baire\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto1\" class=\"col-lg-2 control-label\">foto1</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto1\" ng-model=\"foto1\" placeholder=\"foto1\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto2\" class=\"col-lg-2 control-label\">foto2</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto2\" ng-model=\"foto2\" placeholder=\"foto2\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto3\" class=\"col-lg-2 control-label\">foto3</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto3\" ng-model=\"foto3\" placeholder=\"foto3\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto4\" class=\"col-lg-2 control-label\">foto4</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto4\" ng-model=\"foto4\" placeholder=\"foto4\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"freg\" class=\"col-lg-2 control-label\">freg</label><div class=\"col-lg-10\"><input type=\"text\" id=\"freg\" ng-model=\"freg\" placeholder=\"freg\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"obs\" class=\"col-lg-2 control-label\">obs</label><div class=\"col-lg-10\"><input type=\"text\" id=\"obs\" ng-model=\"obs\" placeholder=\"obs\" class=\"form-control\"></div></div><div class=\"form-group\"><div class=\"col-lg-offset-2 col-lg-10\"><button type=\"submit\" ng-click=\"addPerson()\" class=\"btn btn-default\">Crear Anuncio</button></div></div></div></div></div></div>");;return buf.join("");
+	}
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(44);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(10)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".persona {\n  color: #f00;\n}\n", ""]);
+
+	// exports
+
 
 /***/ }
 /******/ ]);

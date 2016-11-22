@@ -1,4 +1,7 @@
 <?php
+//header("Access-Control-Allow-Headers: Content-Type");
+//header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+//header("Access-Control-Allow-Origin: *");
 //var_dump($_SERVER['REQUEST_METHOD'],$_SERVER['PATH_INFO']); die();
 
 interface DatabaseInterface {
@@ -2241,12 +2244,22 @@ class PHP_CRUD_API {
 $api = new PHP_CRUD_API(array(
 	'dbengine'=>'MySQL',
 	'hostname'=>'localhost',
-	'username'=>'root',
-	'password'=>'123456',
-	'database'=>'test_api',
+	'username'=>'adiahost_adi',
+	'password'=>'123456qwerty',
+	'database'=>'adiahost_mundicar',
 	'charset'=>'utf8'
 ));
 $api->executeCommand();
+
+// $api = new PHP_CRUD_API(array(
+// 	'dbengine'=>'MySQL',
+// 	'hostname'=>'localhost',
+// 	'username'=>'root',
+// 	'password'=>'123456',
+// 	'database'=>'test_api',
+// 	'charset'=>'utf8'
+// ));
+// $api->executeCommand();
 
 // For Microsoft SQL Server 2012 use:
 
