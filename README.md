@@ -23,7 +23,7 @@ npm run serve
 ```
 
 ## Diagrama Clases
-![Diagrama Clases](docs/MundiCar.png)
+![Diagrama Clases](docs/MundiCar-Clases.png)
 
 ## Diagrama Componentes
 ![Diagrama Componentes](docs/MundiCar.png)
