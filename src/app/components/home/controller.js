@@ -6,7 +6,7 @@ function homeController($scope, $http, Page) {
     $scope.active = 0;
     var slides = $scope.slides = [];
     var currIndex = 0;
-
+    //
     $scope.addSlide = function() {
         var newWidth = 1170 + slides.length + 1;
         slides.push({
@@ -18,11 +18,26 @@ function homeController($scope, $http, Page) {
     for (var i = 0; i < 4; i++) {
         $scope.addSlide();
     }
-    //Read
+    //Read Publicaciones
     $http.get('http://localhost/mundicar/src/api/api.php/publicaciones')
         .success(function(response) {
             $scope.publicaciones = php_crud_api_transform(response).publicaciones;
-            console.log(php_crud_api_transform(response).publicaciones)
+        })
+        .error(function(response) {
+            console.log('Error: ' + response);
+        });
+    //Read Categorias
+    $http.get('http://localhost/mundicar/src/api/api.php/categorias_principal')
+        .success(function(response) {
+            $scope.categorias_principales = php_crud_api_transform(response).categorias_principal;
+            //Categiria secundaria
+            $http.get('http://localhost/mundicar/src/api/api.php/categorias_secundaria?filter=cid,eq,'+php_crud_api_transform(response).categorias_principal[0].cid)
+                .success(function(response_secundaria) {
+                    $scope.categorias_secundarias = php_crud_api_transform(response_secundaria).categorias_secundaria;
+                })
+                .error(function(response_secundaria) {
+                    console.log('Error: ' + response_secundaria);
+                });
         })
         .error(function(response) {
             console.log('Error: ' + response);
