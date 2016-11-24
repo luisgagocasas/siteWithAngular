@@ -58919,7 +58919,7 @@
 			app.controller('MainCtrl', function ($scope, $http, Page) {
 				$scope.Page = Page;
 				//Categoria principal
-				$http.get('http://localhost/mundicar/src/api/api.php/categorias_principal')
+				$http.get(Page.urlAPI('categorias_principal'))
 			        .success(function(response) {
 			            $scope.categorias_principales = php_crud_api_transform(response).categorias_principal;
 			        })
@@ -58961,7 +58961,7 @@
 	        $scope.addSlide();
 	    }
 	    //Read Publicaciones
-	    $http.get('http://localhost/mundicar/src/api/api.php/publicaciones')
+	    $http.get(Page.urlAPI('publicaciones'))
 	        .success(function(response) {
 	            $scope.publicaciones = php_crud_api_transform(response).publicaciones;
 	        })
@@ -58969,17 +58969,17 @@
 	            console.log('Error: ' + response);
 	        });
 	    //Read Categorias
-	    $http.get('http://localhost/mundicar/src/api/api.php/categorias_principal')
+	    $http.get(Page.urlAPI('categorias_principal'))
 	        .success(function(response) {
 	            $scope.categorias_principales = php_crud_api_transform(response).categorias_principal;
-	            //Categiria secundaria
-	            $http.get('http://localhost/mundicar/src/api/api.php/categorias_secundaria?filter=cid,eq,'+php_crud_api_transform(response).categorias_principal[0].cid)
-	                .success(function(response_secundaria) {
-	                    $scope.categorias_secundarias = php_crud_api_transform(response_secundaria).categorias_secundaria;
-	                })
-	                .error(function(response_secundaria) {
-	                    console.log('Error: ' + response_secundaria);
-	                });
+	        })
+	        .error(function(response) {
+	            console.log('Error: ' + response);
+	        });
+	    //Categiria secundaria
+	    $http.get(Page.urlAPI('categorias_secundaria'))
+	        .success(function(response) {
+	            $scope.categorias_secundarias = php_crud_api_transform(response).categorias_secundaria;
 	        })
 	        .error(function(response) {
 	            console.log('Error: ' + response);
@@ -59093,7 +59093,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div class=\"container\"><div class=\"row\"><div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\"><div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\"><img ng-src=\"{{slide.image}}\" style=\"margin:auto;\"><div class=\"carousel-caption\"><h4>Slide {{slide.id}}</h4><p>{{slide.text}}</p></div></div></div></div></div><div class=\"container\"><div class=\"row\"><div class=\"jumbotron\"><h1 class=\"text-center\">MundiCar</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus dolorem ad officiis nihil delectus quidem animi rerum, molestias sint natus ducimus quod, unde molestiae dolores laboriosam error facilis odio doloremque.</p></p><p><!--a(href=\"#\", class=\"btn btn-primary btn-lg\", role=\"button\") Leer mas--></p></div></div></div><div class=\"container\"><div class=\"row\"><div ng-repeat=\"categorias_principal in categorias_principales\" class=\"col-xs-12 col-sm-6 col-md-3\"><div class=\"thumbnail\"><img src=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU4OGVkZmIxZmQgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTg4ZWRmYjFmZCI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OC44MDQ2ODc1IiB5PSIxMDUuMSI+MjQyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==\"></div><div class=\"caption\"><ul class=\"list-group\"><li class=\"list-group-item active\">{{ categorias_principal.nombre }}</li><li ng-repeat=\"categorias_secundaria in categorias_secundarias\" class=\"list-group-item\"><span class=\"badge\">2</span>{{categorias_secundaria.nombre}}</li></ul></div></div></div></div><div class=\"container\"><div class=\"row\"><div ng-repeat=\"publicacion in publicaciones\" class=\"col-xs-12 col-sm-6 col-md-4\"><!--h2 {{ publicacion.cod }}--><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/17_thumbnail.jpg\"></figure><p>{{ publicacion.mrc }} - {{ publicacion.modelo }}</p><a href=\"#\" class=\"btn btn-success\">Leer mas</a></div></div></div>");;return buf.join("");
+	buf.push("<div class=\"container\"><div class=\"row\"><div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\"><div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\"><img ng-src=\"{{slide.image}}\" style=\"margin:auto;\"><div class=\"carousel-caption\"><h4>Slide {{slide.id}}</h4><p>{{slide.text}}</p></div></div></div></div></div><div class=\"container\"><div class=\"row\"><div class=\"jumbotron\"><h1 class=\"text-center\">MundiCar</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus dolorem ad officiis nihil delectus quidem animi rerum, molestias sint natus ducimus quod, unde molestiae dolores laboriosam error facilis odio doloremque.</p></p><p><!--a(href=\"#\", class=\"btn btn-primary btn-lg\", role=\"button\") Leer mas--></p></div></div></div><div class=\"container\"><div class=\"row\"><div ng-repeat=\"categorias_principal in categorias_principales\" class=\"col-xs-12 col-sm-6 col-md-3\"><div class=\"thumbnail\"><img src=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU4OGVkZmIxZmQgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTg4ZWRmYjFmZCI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OC44MDQ2ODc1IiB5PSIxMDUuMSI+MjQyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==\"></div><div class=\"caption\"><ul class=\"list-group\"><li class=\"list-group-item active\">{{ categorias_principal.nombre }}</li><li ng-if=\"categorias_principal.cid==categorias_secundaria.cid\" ng-repeat=\"categorias_secundaria in categorias_secundarias\" class=\"list-group-item\"><span class=\"badge\">2</span>{{categorias_secundaria.nombre}}</li></ul></div></div></div></div><div class=\"container\"><div class=\"row\"><div ng-repeat=\"publicacion in publicaciones\" class=\"col-xs-12 col-sm-6 col-md-4\"><!--h2 {{ publicacion.cod }}--><figure><img src=\"http://iglobehost.com/mundicar/oc-content/uploads/0/17_thumbnail.jpg\"></figure><p>{{ publicacion.mrc }} - {{ publicacion.modelo }}</p><a href=\"#\" class=\"btn btn-success\">Leer mas</a></div></div></div>");;return buf.join("");
 	}
 
 /***/ },
@@ -59391,15 +59391,20 @@
 /* 39 */
 /***/ function(module, exports) {
 
-	function titlePage(){
+	function settingPage(){
 	    var title = 'default';
+	    var url = 'http://proyectos.adiahost.com/mundicar/api/api.php/';
 	    return {
 	        title: function() { return title+" - MundiCar"; },
-	        setTitle: function(newTitle) { title = newTitle; }
+	        setTitle: function(newTitle) { title = newTitle; },
+	        //
+	        urlAPI: function(urlAPI) {
+	            return url+urlAPI;
+	        }
 	    };
 	};
 
-	module.exports = titlePage;
+	module.exports = settingPage;
 
 /***/ }
 /******/ ]);

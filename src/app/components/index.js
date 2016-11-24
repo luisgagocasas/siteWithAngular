@@ -14,7 +14,7 @@
 		app.controller('MainCtrl', function ($scope, $http, Page) {
 			$scope.Page = Page;
 			//Categoria principal
-			$http.get('http://localhost/mundicar/src/api/api.php/categorias_principal')
+			$http.get(Page.urlAPI('categorias_principal'))
 		        .success(function(response) {
 		            $scope.categorias_principales = php_crud_api_transform(response).categorias_principal;
 		        })

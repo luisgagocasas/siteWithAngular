@@ -23,7 +23,7 @@
             .caption
                 ul.list-group
                     li.list-group-item.active {{ categorias_principal.nombre }}
-                    li.list-group-item(ng-repeat="categorias_secundaria in categorias_secundarias")
+                    li.list-group-item(ng-if="categorias_principal.cid==categorias_secundaria.cid", ng-repeat="categorias_secundaria in categorias_secundarias")
                         span.badge 2
                         | {{categorias_secundaria.nombre}}
             
