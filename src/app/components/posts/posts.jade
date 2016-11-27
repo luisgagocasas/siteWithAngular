@@ -19,7 +19,7 @@
                     a(href="#/posts/{{posts.indexOf(post)}}") {{post.title}}
                 p by 
                     a(href="#") Start Bootstrap
-                p {{post.content[0] | limitTo:70}}...
+                p {{post.content | limitTo:70}}...
                 a(class="btn btn-primary", href="#/posts/{{posts.indexOf(post)}}") Read More 
                     i(class="fa fa-angle-right")
         hr
