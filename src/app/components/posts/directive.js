@@ -1,13 +1,13 @@
 "use strict";
 // Imports
-    var template = require('./template.jade');
+    var posts = require('./posts.jade');
     var style = require('./style.styl');
 // Exports
     function directive() {
         return {
-            controller: 'saludar as component',
+            controller: 'posts as component',
             restrict: 'EA',
-            template: template
+            template: posts
         };
     }
     module.exports = directive;

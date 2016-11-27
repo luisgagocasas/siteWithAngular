@@ -41,16 +41,16 @@ module.exports = {
 		import: ['~nib/lib/nib/index.styl']
 	},
     module: {
-        loaders: [
-            { test: /\.css$/, loaders: ['to-string-loader', 'css-loader'] },
-            { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
-            { test: /\.jade$/, loader: "jade" },
-            { test: /\.html$/, loader: 'raw-loader' },
-            { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
-            { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' }
-        ],
-		resolve: {
-			extensions: ['', '.js', '.styl', '.jade']
-		}
+      loaders: [
+          { test: /\.css$/, loaders: ['to-string-loader', 'css-loader'] },
+          { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' },
+          { test: /\.jade$/, loader: "jade" },
+          { test: /\.html$/, loader: 'raw-loader' },
+          { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'url?limit=10000' },
+          { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' }
+      ],
+  		resolve: {
+  			extensions: ['', '.js', '.styl', '.jade']
+  		}
     }
 };

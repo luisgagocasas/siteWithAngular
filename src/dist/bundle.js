@@ -57633,7 +57633,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  padding-top: 52px;\n}\n", ""]);
+	exports.push([module.id, "body {\n  padding-top: 52px;\n}\n/*\n@font-face\n    font-family: \"FontAwesome\"\n    src: url(\"\\/assets/fonts/glyphicons-halflings-regular.eot\")\n    src: url(\"\\/assets/fonts/glyphicons-halflings-regular.eot#iefix\") format(\"embedded-opentype\"),\n    url(\"\\/assets/fonts/glyphicons-halflings-regular.woff\") format(\"woff\"),\n    url(\"\\/assets/fonts/glyphicons-halflings-regular.ttf\") format(\"truetype\"),\n    url(\"\\/assets/fonts/glyphicons-halflings-regular.svg#rio\") format(\"svg\")\n    font-weight: normal\n    font-style: normal\n.fa-2x\n    font-size:2em\n.fa-3x\n    font-size:3em\n.fa-4x\n    font-size:4em\n.fa-5x\n    font-size:5em\n*/\n", ""]);
 
 	// exports
 
@@ -57958,9 +57958,13 @@
 				url: '/',
 				template: '<div home></div>'
 			})
-			.state('saludar', {
-				url: '/saludar',
-				template: '<div saludar></div>'
+			.state('posts', {
+				url: '/posts',
+				template: '<div posts></div>'
+			})
+			.state('postsItem', {
+				url: '/posts/:id',
+				template: '<div posts-item></div>'
 			})
 			.state('anuncioAgregar', {
 				url: '/anuncio-agregar',
@@ -58290,11 +58294,13 @@
 	// Imports
 		//Controllers
 		var homeController = __webpack_require__(20);
-		var saludarController = __webpack_require__(21);
+		var postsController = __webpack_require__(40);
+		var postsItemController = __webpack_require__(47);
 		var anuncioAgregarController = __webpack_require__(22);
 		//Directives
 		var homeDirective = __webpack_require__(23);
-		var saludarDirective = __webpack_require__(27);
+		var postsDirective = __webpack_require__(41);
+		var postsItemDirective = __webpack_require__(48);
 		var anuncioAgregarDirective = __webpack_require__(31);
 
 	// Setup
@@ -58312,11 +58318,13 @@
 			        });
 			});
 			app.controller('home', homeController);
-			app.controller('saludar', saludarController);
+			app.controller('posts', postsController);
+			app.controller('postsItem', postsItemController);
 			app.controller('anuncioAgregar', anuncioAgregarController);
 			// Directives
 			app.directive('home', homeDirective);
-			app.directive('saludar', saludarDirective);
+			app.directive('posts', postsDirective);
+			app.directive('postsItem', postsItemDirective);
 			app.directive('anuncioAgregar', anuncioAgregarDirective);
 		}
 
@@ -58388,17 +58396,7 @@
 	module.exports = homeController;
 
 /***/ },
-/* 21 */
-/***/ function(module, exports) {
-
-	function saludarController($scope, Page) {
-	    Page.setTitle('Saludar');
-	    console.log("Saludar");
-	}
-
-	module.exports = saludarController;
-
-/***/ },
+/* 21 */,
 /* 22 */
 /***/ function(module, exports) {
 
@@ -58521,78 +58519,10 @@
 
 
 /***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	// Imports
-	    var template = __webpack_require__(28);
-	    var style = __webpack_require__(29);
-	// Exports
-	    function directive() {
-	        return {
-	            controller: 'saludar as component',
-	            restrict: 'EA',
-	            template: template
-	        };
-	    }
-	    module.exports = directive;
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(16);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<div class=\"saludo\">Hola :) {{ Page.title() }}</div>");;return buf.join("");
-	}
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(30);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(10)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".saludo {\n  color: #00f;\n}\n", ""]);
-
-	// exports
-
-
-/***/ },
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -58777,7 +58707,7 @@
 
 	function settingPage(){
 	    var title = 'default';
-	    var url = 'http://proyectos.adiahost.com/mundicar/api/api.php/';
+	    var url = 'http://localhost/mundicar/src/api/api.php/';
 	    return {
 	        title: function() { return title+" - MundiCar"; },
 	        setTitle: function(newTitle) { title = newTitle; },
@@ -58789,6 +58719,148 @@
 	};
 
 	module.exports = settingPage;
+
+/***/ },
+/* 40 */
+/***/ function(module, exports) {
+
+	function postsController($scope, $http, Page) {
+	    Page.setTitle('Blog');
+	    //
+	    $http.get(Page.urlAPI('posts'))
+	        .success(function(response) {
+	            $scope.posts = php_crud_api_transform(response).posts;
+	        })
+	        .error(function(response) {
+	            console.log('Error: ' + response);
+	        });
+	}
+
+	module.exports = postsController;
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	// Imports
+	    var posts = __webpack_require__(45);
+	    var style = __webpack_require__(43);
+	// Exports
+	    function directive() {
+	        return {
+	            controller: 'posts as component',
+	            restrict: 'EA',
+	            template: posts
+	        };
+	    }
+	    module.exports = directive;
+
+/***/ },
+/* 42 */,
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(44);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(10)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "", ""]);
+
+	// exports
+
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(16);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<div class=\"container\"><div class=\"page-header\"><h1>Blog</h1><ol class=\"breadcrumb\"><li><a ui-sref=\"posts\">Articulos</a></li></ol></div></div><div class=\"container\">                   <div ng-repeat=\"post in posts\" ng-if=\"post.active==1\"><div class=\"row\"><div class=\"col-md-1\"><p><i class=\"glyphicon glyphicon-envelope fa-4x\"></i></p><p>{{post.create}}</p></div><div class=\"col-md-5\"><a href=\"#/posts/{{posts.indexOf(post)}}\"><img ng-src=\"{{post.image}}\" class=\"img-responsive\"></a></div><div class=\"col-md-6\"><h3><a href=\"#/posts/{{posts.indexOf(post)}}\">{{post.title}}</a></h3><p>by <a href=\"#\">Start Bootstrap</a></p><p>{{post.content[0] | limitTo:70}}...</p><a href=\"#/posts/{{posts.indexOf(post)}}\" class=\"btn btn-primary\">Read More <i class=\"fa fa-angle-right\"></i></a></div></div><hr></div></div>");;return buf.join("");
+	}
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(16);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<div class=\"container\"><div class=\"page-header\"><h1>Blog</h1><ol class=\"breadcrumb\"><li><a ui-sref=\"posts\">Articulos</a></li><li class=\"active\">{{posts.title}}        </li></ol></div></div><div class=\"container\"><div class=\"row\"><div class=\"col-md-1\"><p><i class=\"glyphicon glyphicon-envelope fa-4x\"></i></p><p>{{post.create}}</p></div><div class=\"col-md-5\"><img ng-src=\"{{posts.image}}\" class=\"img-responsive\"></div><div class=\"col-md-6\"><h3>{{posts.title}}</h3><p>by <a href=\"#\">Start Bootstrap</a></p><p>{{posts.content[0]}}</p></div></div><hr></div>");;return buf.join("");
+	}
+
+/***/ },
+/* 47 */
+/***/ function(module, exports) {
+
+	function postsItemController($scope, $http, $stateParams, Page) {
+	    Page.setTitle('Blog Item');
+	    //
+	    $http.get(Page.urlAPI('posts'))
+	        .success(function(response) {
+	            $scope.posts = php_crud_api_transform(response).posts[$stateParams.id];
+	            //
+	        })
+	        .error(function(response) {
+	            console.log('Error: ' + response);
+	        });
+	}
+
+	module.exports = postsItemController;
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	// Imports
+	    var postItem = __webpack_require__(46);
+	    var style = __webpack_require__(43);
+	// Exports
+	    function directiveItem() {
+	        return {
+	            controller: 'postsItem as component',
+	            restrict: 'EA',
+	            template: postItem
+	        };
+	    }
+	    module.exports = directiveItem;
 
 /***/ }
 /******/ ]);

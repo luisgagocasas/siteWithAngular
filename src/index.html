@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>{{ Page.title() }}</title>
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	</head>
 	<body>
 		<section class="container">
@@ -19,23 +20,23 @@
 							    <span class="icon-bar"></span>
 							    <span class="icon-bar"></span>
 							  </button>
-							  <a class="navbar-brand" href="#">MundiCar</a>
+							  <a class="navbar-brand" ui-sref="home">MundiCar</a>
 							</div>
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							  <ul class="nav navbar-nav">
 							    <li class="active"><a href="#">Inicio</a></li>
 								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Nosotros<span class="caret"></span></a>
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">Nosotros<span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="#">Como comprar</a></li>
 										<li><a href="#">Como Vender</a></li>
 									</ul>
 								</li>
-							    <li><a href="#">Asistencia</a></li>
+							    <li><a ui-sref="posts">Blog</a></li>
 							    <li><a href="#">Vender</a></li>
 							    <li><a href="#">Stock</a></li>
 								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorias<span class="caret"></span></a>
+									<a href="" class="dropdown-toggle" data-toggle="dropdown">Categorias<span class="caret"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li ng-repeat="categorias_principal in categorias_principales"><a href="#">{{categorias_principal.nombre}} <span class="badge">2</span></a></li>
 									</ul>

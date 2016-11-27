@@ -6,9 +6,13 @@ module.exports = function ($stateProvider, $urlRouterProvider, $compileProvider)
 			url: '/',
 			template: '<div home></div>'
 		})
-		.state('saludar', {
-			url: '/saludar',
-			template: '<div saludar></div>'
+		.state('posts', {
+			url: '/posts',
+			template: '<div posts></div>'
+		})
+		.state('postsItem', {
+			url: '/posts/:id',
+			template: '<div posts-item></div>'
 		})
 		.state('anuncioAgregar', {
 			url: '/anuncio-agregar',

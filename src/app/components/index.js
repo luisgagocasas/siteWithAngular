@@ -1,11 +1,13 @@
 // Imports
 	//Controllers
 	var homeController = require('./home/controller.js');
-	var saludarController = require('./saludar/controller.js');
+	var postsController = require('./posts/controller.js');
+	var postsItemController = require('./posts/itemController.js');
 	var anuncioAgregarController = require('./anuncio-agregar/controller.js');
 	//Directives
 	var homeDirective = require('./home/directive.js');
-	var saludarDirective = require('./saludar/directive.js');
+	var postsDirective = require('./posts/directive.js');
+	var postsItemDirective = require('./posts/itemDirective.js');
 	var anuncioAgregarDirective = require('./anuncio-agregar/directive.js');
 
 // Setup
@@ -23,10 +25,12 @@
 		        });
 		});
 		app.controller('home', homeController);
-		app.controller('saludar', saludarController);
+		app.controller('posts', postsController);
+		app.controller('postsItem', postsItemController);
 		app.controller('anuncioAgregar', anuncioAgregarController);
 		// Directives
 		app.directive('home', homeDirective);
-		app.directive('saludar', saludarDirective);
+		app.directive('posts', postsDirective);
+		app.directive('postsItem', postsItemDirective);
 		app.directive('anuncioAgregar', anuncioAgregarDirective);
 	}
