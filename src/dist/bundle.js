@@ -67,7 +67,7 @@
 		__webpack_require__(19)(app);
 
 	// Import Services
-		__webpack_require__(35)(app);
+		__webpack_require__(38)(app);
 
 
 	// Import Classes
@@ -58294,14 +58294,14 @@
 	// Imports
 		//Controllers
 		var homeController = __webpack_require__(20);
-		var postsController = __webpack_require__(40);
-		var postsItemController = __webpack_require__(47);
-		var anuncioAgregarController = __webpack_require__(22);
+		var postsController = __webpack_require__(21);
+		var postsItemController = __webpack_require__(22);
+		var anuncioAgregarController = __webpack_require__(23);
 		//Directives
-		var homeDirective = __webpack_require__(23);
-		var postsDirective = __webpack_require__(41);
-		var postsItemDirective = __webpack_require__(48);
-		var anuncioAgregarDirective = __webpack_require__(31);
+		var homeDirective = __webpack_require__(24);
+		var postsDirective = __webpack_require__(28);
+		var postsItemDirective = __webpack_require__(32);
+		var anuncioAgregarDirective = __webpack_require__(34);
 
 	// Setup
 		module.exports = function (app) {
@@ -58396,8 +58396,127 @@
 	module.exports = homeController;
 
 /***/ },
-/* 21 */,
+/* 21 */
+/***/ function(module, exports) {
+
+	function postsController($scope, $http, Page) {
+	    Page.setTitle('Blog');
+	    //
+	    $http.get(Page.urlAPI('posts'))
+	        .success(function(response) {
+	            $scope.posts = php_crud_api_transform(response).posts;
+	        })
+	        .error(function(response) {
+	            console.log('Error: ' + response);
+	        });
+	}
+
+	module.exports = postsController;
+
+/***/ },
 /* 22 */
+/***/ function(module, exports) {
+
+	function postsItemController($scope, $http, $stateParams, $location, Page) {
+	    Page.setTitle('Blog Item');
+	    //Show Item
+	    $http.get(Page.urlAPI('posts'))
+	        .success(function(response) {
+	            $scope.posts = php_crud_api_transform(response).posts[$stateParams.id];
+	            $scope.idItem = $stateParams.id;
+	            //
+	        })
+	        .error(function(response) {
+	            console.log('Error: ' + response);
+	        });
+	    //Show Coments Item
+	    $http.get(Page.urlAPI('post_coments'))
+	        .success(function(response) {
+	            $scope.post_coments = php_crud_api_transform(response).post_coments;
+	            //
+	        })
+	        .error(function(response) {
+	            console.log('Error: ' + response);
+	        });
+	    //New Coment
+	    $scope.addComent = function() {
+	        $http.post(Page.urlAPI('post_coments'),
+	            {
+	                // pid: $scope.pid,
+	                // uid: $scope.uid,
+	                // coment: $scope.coment,
+	                // date: $scope.date,
+	                // active: $scope.active
+	                pid: $scope.idItem,
+	                uid: 1,
+	                coment: $scope.coment,
+	                date: Date.parse(Date()),
+	                active: 1
+	            })
+	            .success(function(response) {
+	                //$location.path("/");
+	                console.log("Comentario agregado..");
+	            })
+	            .error(function(response) {
+	                console.log('Error: ' + response);
+	            });
+	    }
+	}
+
+	module.exports = postsItemController;
+
+
+
+
+	// (function(){
+	//   var app = angular.module('blogApp',[]);
+	//
+	//   app.controller('BlogController', ['$http', function($http){
+	//
+	//     var blog = this;
+	//     blog.title = "AngularJS Blog App";
+	//
+	//     blog.posts = {};
+	//     $http.get('https://s3-us-west-2.amazonaws.com/s.cdpn.io/110131/posts_1.json').success(function(data){
+	//       blog.posts = data;
+	//     });
+	//
+	//     blog.tab = 'blog';
+	//
+	//     blog.selectTab = function(setTab){
+	//       blog.tab = setTab;
+	//       console.log(blog.tab)
+	//     };
+	//
+	//     blog.isSelected = function(checkTab){
+	//       return blog.tab === checkTab;
+	//     };
+	//
+	//     blog.post = {};
+	//     blog.addPost = function(){
+	//       blog.post.createdOn = Date.now();
+	//       blog.post.comments = [];
+	//       blog.post.likes = 0;
+	//       blog.posts.unshift(this.post);
+	//       blog.tab = 0;
+	//       blog.post ={};
+	//     };
+	//
+	//   }]);
+	//
+	//   app.controller('CommentController', function(){
+	//     this.comment = {};
+	//     this.addComment = function(post){
+	//       this.comment.createdOn = Date.now();
+	//       post.comments.push(this.comment);
+	//       this.comment ={};
+	//     };
+	//   });
+	//
+	// })();
+
+/***/ },
+/* 23 */
 /***/ function(module, exports) {
 
 	function anuncioAddController($scope, $http, $location, Page) {
@@ -58447,13 +58566,13 @@
 	module.exports = anuncioAddController;
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	// Imports
-	    var template = __webpack_require__(24);
-	    var style = __webpack_require__(25);
+	    var template = __webpack_require__(25);
+	    var style = __webpack_require__(26);
 	// Exports
 	    function directive() {
 	        return {
@@ -58465,7 +58584,7 @@
 	    module.exports = directive;
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(16);
@@ -58479,13 +58598,13 @@
 	}
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(26);
+	var content = __webpack_require__(27);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(11)(content, {});
@@ -58505,7 +58624,7 @@
 	}
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(10)();
@@ -58519,29 +58638,25 @@
 
 
 /***/ },
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	// Imports
-	    var template = __webpack_require__(32);
-	    var style = __webpack_require__(33);
+	    var posts = __webpack_require__(29);
+	    var style = __webpack_require__(30);
 	// Exports
 	    function directive() {
 	        return {
-	            controller: 'anuncioAgregar as component',
+	            controller: 'posts as component',
 	            restrict: 'EA',
-	            template: template
+	            template: posts
 	        };
 	    }
 	    module.exports = directive;
 
 /***/ },
-/* 32 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(16);
@@ -58551,17 +58666,17 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div class=\"container\"><div class=\"row\"><div class=\"col-xs-12 col-sm-6 col-md-6\"><div class=\"form-horizontal\"><div class=\"form-group\"><label for=\"cod\" class=\"col-lg-2 control-label\">cod</label><div class=\"col-lg-10\"><input type=\"text\" id=\"cod\" ng-model=\"cod\" placeholder=\"cod\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"mrc\" class=\"col-lg-2 control-label\">mrc</label><div class=\"col-lg-10\"><input type=\"text\" id=\"mrc\" ng-model=\"mrc\" placeholder=\"mrc\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"modelo\" class=\"col-lg-2 control-label\">modelo</label><div class=\"col-lg-10\"><input type=\"text\" id=\"modelo\" ng-model=\"modelo\" placeholder=\"modelo\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"anio\" class=\"col-lg-2 control-label\">anio</label><div class=\"col-lg-10\"><input type=\"text\" id=\"anio\" ng-model=\"anio\" placeholder=\"anio\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"motor\" class=\"col-lg-2 control-label\">motor</label><div class=\"col-lg-10\"><input type=\"text\" id=\"motor\" ng-model=\"motor\" placeholder=\"motor\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"combustible\" class=\"col-lg-2 control-label\">combustible</label><div class=\"col-lg-10\"><input type=\"text\" id=\"combustible\" ng-model=\"combustible\" placeholder=\"combustible\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"km\" class=\"col-lg-2 control-label\">km</label><div class=\"col-lg-10\"><input type=\"text\" id=\"km\" ng-model=\"km\" placeholder=\"km\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"color\" class=\"col-lg-2 control-label\">color</label><div class=\"col-lg-10\"><input type=\"text\" id=\"color\" ng-model=\"color\" placeholder=\"color\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"volante\" class=\"col-lg-2 control-label\">volante</label><div class=\"col-lg-10\"><input type=\"text\" id=\"volante\" ng-model=\"volante\" placeholder=\"volante\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"trans\" class=\"col-lg-2 control-label\">trans</label><div class=\"col-lg-10\"><input type=\"text\" id=\"trans\" ng-model=\"trans\" placeholder=\"trans\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"cap\" class=\"col-lg-2 control-label\">cap</label><div class=\"col-lg-10\"><input type=\"text\" id=\"cap\" ng-model=\"cap\" placeholder=\"cap\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"tdmotor\" class=\"col-lg-2 control-label\">tdmotor</label><div class=\"col-lg-10\"><input type=\"text\" id=\"tdmotor\" ng-model=\"tdmotor\" placeholder=\"tdmotor\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"precio\" class=\"col-lg-2 control-label\">precio</label><div class=\"col-lg-10\"><input type=\"text\" id=\"precio\" ng-model=\"precio\" placeholder=\"precio\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"condicion\" class=\"col-lg-2 control-label\">condicion</label><div class=\"col-lg-10\"><input type=\"text\" id=\"condicion\" ng-model=\"condicion\" placeholder=\"condicion\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"airea\" class=\"col-lg-2 control-label\">airea</label><div class=\"col-lg-10\"><input type=\"text\" id=\"airea\" ng-model=\"airea\" placeholder=\"airea\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"lunase\" class=\"col-lg-2 control-label\">lunase</label><div class=\"col-lg-10\"><input type=\"text\" id=\"lunase\" ng-model=\"lunase\" placeholder=\"lunase\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"equipor\" class=\"col-lg-2 control-label\">equipor</label><div class=\"col-lg-10\"><input type=\"text\" id=\"equipor\" ng-model=\"equipor\" placeholder=\"equipor\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"sonroof\" class=\"col-lg-2 control-label\">sonroof</label><div class=\"col-lg-10\"><input type=\"text\" id=\"sonroof\" ng-model=\"sonroof\" placeholder=\"sonroof\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"asiento\" class=\"col-lg-2 control-label\">asiento</label><div class=\"col-lg-10\"><input type=\"text\" id=\"asiento\" ng-model=\"asiento\" placeholder=\"asiento\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"baire\" class=\"col-lg-2 control-label\">baire</label><div class=\"col-lg-10\"><input type=\"text\" id=\"baire\" ng-model=\"baire\" placeholder=\"baire\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto1\" class=\"col-lg-2 control-label\">foto1</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto1\" ng-model=\"foto1\" placeholder=\"foto1\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto2\" class=\"col-lg-2 control-label\">foto2</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto2\" ng-model=\"foto2\" placeholder=\"foto2\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto3\" class=\"col-lg-2 control-label\">foto3</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto3\" ng-model=\"foto3\" placeholder=\"foto3\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto4\" class=\"col-lg-2 control-label\">foto4</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto4\" ng-model=\"foto4\" placeholder=\"foto4\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"freg\" class=\"col-lg-2 control-label\">freg</label><div class=\"col-lg-10\"><input type=\"text\" id=\"freg\" ng-model=\"freg\" placeholder=\"freg\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"obs\" class=\"col-lg-2 control-label\">obs</label><div class=\"col-lg-10\"><input type=\"text\" id=\"obs\" ng-model=\"obs\" placeholder=\"obs\" class=\"form-control\"></div></div><div class=\"form-group\"><div class=\"col-lg-offset-2 col-lg-10\"><button type=\"submit\" ng-click=\"addPerson()\" class=\"btn btn-default\">Crear Anuncio</button></div></div></div></div></div></div>");;return buf.join("");
+	buf.push("<div class=\"container\"><div class=\"page-header\"><h1>Blog</h1><ol class=\"breadcrumb\"><li><a ui-sref=\"posts\">Articulos</a></li></ol></div></div><div class=\"container\">                   <div ng-repeat=\"post in posts\" ng-if=\"post.active==1\"><div class=\"row\"><div class=\"col-md-1\"><p><i class=\"glyphicon glyphicon-envelope fa-4x\"></i></p><p>{{post.create}}</p></div><div class=\"col-md-5\"><a href=\"#/posts/{{posts.indexOf(post)}}\"><img ng-src=\"{{post.image}}\" class=\"img-responsive\"></a></div><div class=\"col-md-6\"><h3><a href=\"#/posts/{{posts.indexOf(post)}}\">{{post.title}}</a></h3><p>by <a href=\"#\">Start Bootstrap</a></p><p>{{post.content | limitTo:70}}...</p><a href=\"#/posts/{{posts.indexOf(post)}}\" class=\"btn btn-primary\">Read More <i class=\"fa fa-angle-right\"></i></a></div></div><hr></div></div>");;return buf.join("");
 	}
 
 /***/ },
-/* 33 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(34);
+	var content = __webpack_require__(31);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(11)(content, {});
@@ -58581,7 +58696,111 @@
 	}
 
 /***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(10)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "", ""]);
+
+	// exports
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	// Imports
+	    var postItem = __webpack_require__(33);
+	    var style = __webpack_require__(30);
+	// Exports
+	    function directiveItem() {
+	        return {
+	            controller: 'postsItem as component',
+	            restrict: 'EA',
+	            template: postItem
+	        };
+	    }
+	    module.exports = directiveItem;
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(16);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<div class=\"container\"><div class=\"row\"><div class=\"col-lg-12\"><h1 class=\"page-header\">Blog <small>{{posts.title}}</small></h1><ol class=\"breadcrumb\"><li><a ui-sref=\"posts\">Articulos</a></li><li class=\"active\">{{posts.title}}  </li></ol></div></div><div class=\"row\"><div class=\"col-lg-8\"><hr><p><i class=\"fa fa-clock-o\"></i> Posted {{posts.create}} by <a href=\"#\">Start Boostrap</a></p><hr><img ng-src=\"{{posts.image}}\" class=\"img-responsive\"><hr><p class=\"lead\">Science cuts two ways, of course; its products can be used for both good and evil. But\nthere's no turning back from science. The early warnings about technological dangers also come from\nscience.</p><p>{{posts.content}}</p><p>You know, being a test pilot isn't always the healthiest business in the world.</p><p>Cookie jelly beans soufflé icing. Gummi bears tootsie roll powder chupa chups cheesecake chocolate\njelly-o lollipop lollipop. Halvah applicake chupa chups. Marshmallow chocolate jujubes icing lollipop\ngummi bears chupa chups pudding bonbon. Jelly beans jelly soufflé jujubes. Sesame snaps lollipop icing\ndonut lemon drops soufflé.</p><p>Donut caramels gingerbread. Sweet roll macaroon pastry cotton candy oat cake sesame snaps biscuit lemon\ndrops dessert. Candy canes carrot cake danish carrot cake soufflé jelly chocolate cake muffin. Topping\nbrownie donut. Oat cake marzipan dragée cheesecake. Donut chocolate cake jujubes tart dragée toffee.</p><p>Tilefish electric knifefish salmon shark southern Dolly Varden. Pacific argentine tope golden shiner\nilisha barreleye loosejaw catla, dogteeth tetra catfish tenpounder nase scup Ragfish brotula.\" Codle\nbrook lamprey pleco, Japanese eel convict cichlid titan triggerfish, plownose chimaera topminnow Black\nscalyfin. Walleye pollock, blue shark Sacramento blackfish prickleback airbreathing catfish yellowfin\ncutthroat trout, goby southern sandfish. North Pacific daggertooth dorab cepalin weever flying\ngurnard.</p><p><strong>Placeholder text by:</strong></p><u><li><a href=\"http://spaceipsum.com/\">Space Ipsum</a></li><li><a href=\"http://cupcakeipsum.com/\">Cupcake Ipsum</a></li><li><a href=\"http://tunaipsum.com/\">Tuna Ipsum</a></li></u><hr><div class=\"well\"><h4>Leave a Comment:</h4><form role=\"form\"><div class=\"form-group\"><textarea rows=\"3\" ng-model=\"coment\" class=\"form-control\"></textarea></div><button type=\"submit\" ng-click=\"addComent()\" class=\"btn btn-primary\">Agregar</button></form></div><hr><div ng-repeat=\"coment in post_coments\" ng-if=\"coment.pid==idItem\"><h3>Luis G. <small>{{ coment.date | date : 'yyyy-MM-dd HH:mm:ss Z'}}</small></h3><p>{{coment.coment}}</p></div></div><div class=\"col-lg-4\"><div class=\"well\"><h4>Blog Search</h4><div class=\"input-group\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-search\"></i></button></span></div></div><div class=\"well\"><h4>Popular Blog Categories</h4><div class=\"row\"><div class=\"col-lg-6\"><ul class=\"list-unstyled\"><li><a href=\"#dinosaurs\">Dinosaurs</a></li><li><a href=\"#spaceships\">Spaceships</a></li><li><a href=\"#fried-foods\">Fried Foods</a></li><li><a href=\"#wild-animals\">Wild Animals</a></li></ul></div><div class=\"col-lg-6\"><ul class=\"list-unstyled\"><li><a href=\"#alien-abductions\">Alien Abductions</a></li><li><a href=\"#business-casual\">Business Casual</a></li><li><a href=\"#robots\">Robots</a></li><li><a href=\"#fireworks\">Fireworks</a></li></ul></div></div></div><div class=\"well\"><h4>Side Widget Well</h4><p>Bootstrap's default well's work great for side widgets! What is a widget anyways...?</p></div></div></div></div>");;return buf.join("");
+	}
+
+/***/ },
 /* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	// Imports
+	    var template = __webpack_require__(35);
+	    var style = __webpack_require__(36);
+	// Exports
+	    function directive() {
+	        return {
+	            controller: 'anuncioAgregar as component',
+	            restrict: 'EA',
+	            template: template
+	        };
+	    }
+	    module.exports = directive;
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(16);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<div class=\"container\"><div class=\"row\"><div class=\"col-xs-12 col-sm-6 col-md-6\"><div class=\"form-horizontal\"><div class=\"form-group\"><label for=\"cod\" class=\"col-lg-2 control-label\">cod</label><div class=\"col-lg-10\"><input type=\"text\" id=\"cod\" ng-model=\"cod\" placeholder=\"cod\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"mrc\" class=\"col-lg-2 control-label\">mrc</label><div class=\"col-lg-10\"><input type=\"text\" id=\"mrc\" ng-model=\"mrc\" placeholder=\"mrc\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"modelo\" class=\"col-lg-2 control-label\">modelo</label><div class=\"col-lg-10\"><input type=\"text\" id=\"modelo\" ng-model=\"modelo\" placeholder=\"modelo\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"anio\" class=\"col-lg-2 control-label\">anio</label><div class=\"col-lg-10\"><input type=\"text\" id=\"anio\" ng-model=\"anio\" placeholder=\"anio\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"motor\" class=\"col-lg-2 control-label\">motor</label><div class=\"col-lg-10\"><input type=\"text\" id=\"motor\" ng-model=\"motor\" placeholder=\"motor\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"combustible\" class=\"col-lg-2 control-label\">combustible</label><div class=\"col-lg-10\"><input type=\"text\" id=\"combustible\" ng-model=\"combustible\" placeholder=\"combustible\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"km\" class=\"col-lg-2 control-label\">km</label><div class=\"col-lg-10\"><input type=\"text\" id=\"km\" ng-model=\"km\" placeholder=\"km\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"color\" class=\"col-lg-2 control-label\">color</label><div class=\"col-lg-10\"><input type=\"text\" id=\"color\" ng-model=\"color\" placeholder=\"color\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"volante\" class=\"col-lg-2 control-label\">volante</label><div class=\"col-lg-10\"><input type=\"text\" id=\"volante\" ng-model=\"volante\" placeholder=\"volante\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"trans\" class=\"col-lg-2 control-label\">trans</label><div class=\"col-lg-10\"><input type=\"text\" id=\"trans\" ng-model=\"trans\" placeholder=\"trans\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"cap\" class=\"col-lg-2 control-label\">cap</label><div class=\"col-lg-10\"><input type=\"text\" id=\"cap\" ng-model=\"cap\" placeholder=\"cap\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"tdmotor\" class=\"col-lg-2 control-label\">tdmotor</label><div class=\"col-lg-10\"><input type=\"text\" id=\"tdmotor\" ng-model=\"tdmotor\" placeholder=\"tdmotor\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"precio\" class=\"col-lg-2 control-label\">precio</label><div class=\"col-lg-10\"><input type=\"text\" id=\"precio\" ng-model=\"precio\" placeholder=\"precio\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"condicion\" class=\"col-lg-2 control-label\">condicion</label><div class=\"col-lg-10\"><input type=\"text\" id=\"condicion\" ng-model=\"condicion\" placeholder=\"condicion\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"airea\" class=\"col-lg-2 control-label\">airea</label><div class=\"col-lg-10\"><input type=\"text\" id=\"airea\" ng-model=\"airea\" placeholder=\"airea\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"lunase\" class=\"col-lg-2 control-label\">lunase</label><div class=\"col-lg-10\"><input type=\"text\" id=\"lunase\" ng-model=\"lunase\" placeholder=\"lunase\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"equipor\" class=\"col-lg-2 control-label\">equipor</label><div class=\"col-lg-10\"><input type=\"text\" id=\"equipor\" ng-model=\"equipor\" placeholder=\"equipor\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"sonroof\" class=\"col-lg-2 control-label\">sonroof</label><div class=\"col-lg-10\"><input type=\"text\" id=\"sonroof\" ng-model=\"sonroof\" placeholder=\"sonroof\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"asiento\" class=\"col-lg-2 control-label\">asiento</label><div class=\"col-lg-10\"><input type=\"text\" id=\"asiento\" ng-model=\"asiento\" placeholder=\"asiento\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"baire\" class=\"col-lg-2 control-label\">baire</label><div class=\"col-lg-10\"><input type=\"text\" id=\"baire\" ng-model=\"baire\" placeholder=\"baire\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto1\" class=\"col-lg-2 control-label\">foto1</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto1\" ng-model=\"foto1\" placeholder=\"foto1\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto2\" class=\"col-lg-2 control-label\">foto2</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto2\" ng-model=\"foto2\" placeholder=\"foto2\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto3\" class=\"col-lg-2 control-label\">foto3</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto3\" ng-model=\"foto3\" placeholder=\"foto3\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"foto4\" class=\"col-lg-2 control-label\">foto4</label><div class=\"col-lg-10\"><input type=\"text\" id=\"foto4\" ng-model=\"foto4\" placeholder=\"foto4\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"freg\" class=\"col-lg-2 control-label\">freg</label><div class=\"col-lg-10\"><input type=\"text\" id=\"freg\" ng-model=\"freg\" placeholder=\"freg\" class=\"form-control\"></div></div><div class=\"form-group\"><label for=\"obs\" class=\"col-lg-2 control-label\">obs</label><div class=\"col-lg-10\"><input type=\"text\" id=\"obs\" ng-model=\"obs\" placeholder=\"obs\" class=\"form-control\"></div></div><div class=\"form-group\"><div class=\"col-lg-offset-2 col-lg-10\"><button type=\"submit\" ng-click=\"addPerson()\" class=\"btn btn-default\">Crear Anuncio</button></div></div></div></div></div></div>");;return buf.join("");
+	}
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(37);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(11)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(10)();
@@ -58595,20 +58814,20 @@
 
 
 /***/ },
-/* 35 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function (app) {
 
-		app.factory('libs', __webpack_require__(36));
-		app.factory('network', __webpack_require__(37));
-		app.factory('ui', __webpack_require__(38));
-		app.factory('Page', __webpack_require__(39));
+		app.factory('libs', __webpack_require__(39));
+		app.factory('network', __webpack_require__(40));
+		app.factory('ui', __webpack_require__(41));
+		app.factory('Page', __webpack_require__(42));
 
 	}
 
 /***/ },
-/* 36 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function () {
@@ -58616,7 +58835,7 @@
 	}
 
 /***/ },
-/* 37 */
+/* 40 */
 /***/ function(module, exports) {
 
 	module.exports = function ($window) {
@@ -58656,7 +58875,7 @@
 	}
 
 /***/ },
-/* 38 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = function () {
@@ -58702,7 +58921,7 @@
 	}
 
 /***/ },
-/* 39 */
+/* 42 */
 /***/ function(module, exports) {
 
 	function settingPage(){
@@ -58719,148 +58938,6 @@
 	};
 
 	module.exports = settingPage;
-
-/***/ },
-/* 40 */
-/***/ function(module, exports) {
-
-	function postsController($scope, $http, Page) {
-	    Page.setTitle('Blog');
-	    //
-	    $http.get(Page.urlAPI('posts'))
-	        .success(function(response) {
-	            $scope.posts = php_crud_api_transform(response).posts;
-	        })
-	        .error(function(response) {
-	            console.log('Error: ' + response);
-	        });
-	}
-
-	module.exports = postsController;
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	// Imports
-	    var posts = __webpack_require__(45);
-	    var style = __webpack_require__(43);
-	// Exports
-	    function directive() {
-	        return {
-	            controller: 'posts as component',
-	            restrict: 'EA',
-	            template: posts
-	        };
-	    }
-	    module.exports = directive;
-
-/***/ },
-/* 42 */,
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(44);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/stylus-loader/index.js!./style.styl");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(10)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "", ""]);
-
-	// exports
-
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(16);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<div class=\"container\"><div class=\"page-header\"><h1>Blog</h1><ol class=\"breadcrumb\"><li><a ui-sref=\"posts\">Articulos</a></li></ol></div></div><div class=\"container\">                   <div ng-repeat=\"post in posts\" ng-if=\"post.active==1\"><div class=\"row\"><div class=\"col-md-1\"><p><i class=\"glyphicon glyphicon-envelope fa-4x\"></i></p><p>{{post.create}}</p></div><div class=\"col-md-5\"><a href=\"#/posts/{{posts.indexOf(post)}}\"><img ng-src=\"{{post.image}}\" class=\"img-responsive\"></a></div><div class=\"col-md-6\"><h3><a href=\"#/posts/{{posts.indexOf(post)}}\">{{post.title}}</a></h3><p>by <a href=\"#\">Start Bootstrap</a></p><p>{{post.content | limitTo:70}}...</p><a href=\"#/posts/{{posts.indexOf(post)}}\" class=\"btn btn-primary\">Read More <i class=\"fa fa-angle-right\"></i></a></div></div><hr></div></div>");;return buf.join("");
-	}
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(16);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<div class=\"container\"><div class=\"row\"><div class=\"col-lg-12\"><h1 class=\"page-header\">Blog <small>{{posts.title}}</small></h1><ol class=\"breadcrumb\"><li><a ui-sref=\"posts\">Articulos</a></li><li class=\"active\">{{posts.title}}  </li></ol></div></div><div class=\"row\"><div class=\"col-lg-8\"><hr><p><i class=\"fa fa-clock-o\"></i> Posted {{posts.create}} by <a href=\"#\">Start Boostrap</a></p><hr><img ng-src=\"{{posts.image}}\" class=\"img-responsive\"><hr><p class=\"lead\">Science cuts two ways, of course; its products can be used for both good and evil. But\nthere's no turning back from science. The early warnings about technological dangers also come from\nscience.</p>{{posts.content}}<p>You know, being a test pilot isn't always the healthiest business in the world.</p><p>Cookie jelly beans soufflé icing. Gummi bears tootsie roll powder chupa chups cheesecake chocolate\njelly-o lollipop lollipop. Halvah applicake chupa chups. Marshmallow chocolate jujubes icing lollipop\ngummi bears chupa chups pudding bonbon. Jelly beans jelly soufflé jujubes. Sesame snaps lollipop icing\ndonut lemon drops soufflé.</p><p>Donut caramels gingerbread. Sweet roll macaroon pastry cotton candy oat cake sesame snaps biscuit lemon\ndrops dessert. Candy canes carrot cake danish carrot cake soufflé jelly chocolate cake muffin. Topping\nbrownie donut. Oat cake marzipan dragée cheesecake. Donut chocolate cake jujubes tart dragée toffee.</p><p>Tilefish electric knifefish salmon shark southern Dolly Varden. Pacific argentine tope golden shiner\nilisha barreleye loosejaw catla, dogteeth tetra catfish tenpounder nase scup Ragfish brotula.\" Codle\nbrook lamprey pleco, Japanese eel convict cichlid titan triggerfish, plownose chimaera topminnow Black\nscalyfin. Walleye pollock, blue shark Sacramento blackfish prickleback airbreathing catfish yellowfin\ncutthroat trout, goby southern sandfish. North Pacific daggertooth dorab cepalin weever flying\ngurnard.</p><p><strong>Placeholder text by:</strong></p><u><li><a href=\"http://spaceipsum.com/\">Space Ipsum</a></li><li><a href=\"http://cupcakeipsum.com/\">Cupcake Ipsum</a></li><li><a href=\"http://tunaipsum.com/\">Tuna Ipsum</a></li></u><hr><div class=\"well\"><h4>Leave a Comment:</h4><form role=\"form\"><div class=\"form-group\"><textarea rows=\"3\" class=\"form-control\"></textarea></div><button type=\"submit\" class=\"btn btn-primary\">Submit</button></form></div><hr><h3>Start Bootstrap<small>9:41 PM on August 24, 2013</small></h3><p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking\nabout space or something, then you randomly start babbling about cupcakes, and you end off with random\nfish names.</p><h3>Start Bootstrap<small>9:47 PM on August 24, 2013</small></h3><p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals,\nalien abductions, business casual, robots, and fireworks' has true potential.</p></div><div class=\"col-lg-4\"><div class=\"well\"><h4>Blog Search</h4><div class=\"input-group\"><input type=\"text\" class=\"form-control\"><span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-search\"></i></button></span></div></div><div class=\"well\"><h4>Popular Blog Categories</h4><div class=\"row\"><div class=\"col-lg-6\"><ul class=\"list-unstyled\"><li><a href=\"#dinosaurs\">Dinosaurs</a></li><li><a href=\"#spaceships\">Spaceships</a></li><li><a href=\"#fried-foods\">Fried Foods</a></li><li><a href=\"#wild-animals\">Wild Animals</a></li></ul></div><div class=\"col-lg-6\"><ul class=\"list-unstyled\"><li><a href=\"#alien-abductions\">Alien Abductions</a></li><li><a href=\"#business-casual\">Business Casual</a></li><li><a href=\"#robots\">Robots</a></li><li><a href=\"#fireworks\">Fireworks</a></li></ul></div></div></div><div class=\"well\"><h4>Side Widget Well</h4><p>Bootstrap's default well's work great for side widgets! What is a widget anyways...?</p></div></div></div></div>");;return buf.join("");
-	}
-
-/***/ },
-/* 47 */
-/***/ function(module, exports) {
-
-	function postsItemController($scope, $http, $stateParams, Page) {
-	    Page.setTitle('Blog Item');
-	    //
-	    $http.get(Page.urlAPI('posts'))
-	        .success(function(response) {
-	            $scope.posts = php_crud_api_transform(response).posts[$stateParams.id];
-	            //
-	        })
-	        .error(function(response) {
-	            console.log('Error: ' + response);
-	        });
-	}
-
-	module.exports = postsItemController;
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	// Imports
-	    var postItem = __webpack_require__(46);
-	    var style = __webpack_require__(43);
-	// Exports
-	    function directiveItem() {
-	        return {
-	            controller: 'postsItem as component',
-	            restrict: 'EA',
-	            template: postItem
-	        };
-	    }
-	    module.exports = directiveItem;
 
 /***/ }
 /******/ ]);
